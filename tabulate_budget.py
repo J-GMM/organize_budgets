@@ -23,11 +23,12 @@ for csv_file in files:
     df['Date'] = pd.to_datetime(df['Date'], format='%m/%d/%Y')
     df = df.sort_values(by=['Date'])
 
-    budget_df = df[df['Date'] > date_range['Start Date'][0]][df['Date'] < date_range['End Date'][0]].drop(columns=['Balance'])
+    budget_df = df[df['Date'] > date_range['Start Date'][0]]
+    budget_df = budget_df[budget_df['Date'] < date_range['End Date'][0]].drop(columns=['Balance'])
     print("Output has been copied to clipboard:", budget_df)
     budget_df.to_clipboard(excel=True, index=False, sep='\t', header=False)
 
-    if 'checkingAccountActivityExport.csv' in csv_file:
+    if 'AccountActivityExport.csv' in csv_file:
         account = "Checking"
     if csv_file == 'creditCardAccountActivityExport' in csv_file:
         account = "Credit Card"
